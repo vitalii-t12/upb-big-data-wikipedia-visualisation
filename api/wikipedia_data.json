@@ -1,0 +1,62 @@
+{
+    "type": "standard",
+    "title": "Elon Musk",
+    "displaytitle": "<span class=\"mw-page-title-main\">Elon Musk</span>",
+    "namespace": {
+        "id": 0,
+        "text": ""
+    },
+    "wikibase_item": "Q317521",
+    "titles": {
+        "canonical": "Elon_Musk",
+        "normalized": "Elon Musk",
+        "display": "<span class=\"mw-page-title-main\">Elon Musk</span>"
+    },
+    "pageid": 909036,
+    "thumbnail": {
+        "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Elon_Musk_Royal_Society_crop.jpg/320px-Elon_Musk_Royal_Society_crop.jpg",
+        "width": 320,
+        "height": 438
+    },
+    "originalimage": {
+        "source": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Elon_Musk_Royal_Society_crop.jpg",
+        "width": 1236,
+        "height": 1691
+    },
+    "lang": "en",
+    "dir": "ltr",
+    "revision": "1269192495",
+    "tid": "33328589-d1b5-11ef-9281-71627fe3627b",
+    "timestamp": "2025-01-13T13:49:25Z",
+    "description": "South African-born businessman (born 1971)",
+    "description_source": "local",
+    "content_urls": {
+        "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Elon_Musk",
+            "revisions": "https://en.wikipedia.org/wiki/Elon_Musk?action=history",
+            "edit": "https://en.wikipedia.org/wiki/Elon_Musk?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Elon_Musk"
+        },
+        "mobile": {
+            "page": "https://en.m.wikipedia.org/wiki/Elon_Musk",
+            "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Elon_Musk",
+            "edit": "https://en.m.wikipedia.org/wiki/Elon_Musk?action=edit",
+            "talk": "https://en.m.wikipedia.org/wiki/Talk:Elon_Musk"
+        }
+    },
+    "extract": "Elon Reeve Musk is a businessman known for his key roles in the space company SpaceX and the automotive company Tesla, Inc. He is also known for his ownership of X Corp., and his role in the founding of the Boring Company, xAI, Neuralink, and OpenAI. Musk is the wealthiest individual in the world; as of January\u00a02025, Forbes estimates his net worth to be US$421\u00a0billion.",
+    "extract_html": "<p><b>Elon Reeve Musk</b> is a businessman known for his key roles in the space company SpaceX and the automotive company Tesla, Inc. He is also known for his ownership of X Corp., and his role in the founding of the Boring Company, xAI, Neuralink, and OpenAI. Musk is the wealthiest individual in the world; as of January\u00a02025, <i>Forbes</i> estimates his net worth to be US$421\u00a0billion.</p>",
+    "pageviews": {
+        "total_views": 21121499,
+        "daily_average": 57867.12,
+        "desktop": {
+            "total_views": 6414019,
+            "daily_average": 17572.65
+        },
+        "mobile": {
+            "total_views": 14707480,
+            "daily_average": 40294.47
+        },
+        "status": "success"
+    }
+}
