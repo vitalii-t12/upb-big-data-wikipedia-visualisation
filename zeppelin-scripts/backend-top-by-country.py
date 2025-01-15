@@ -7,8 +7,9 @@ from pyhdfs import HdfsClient
 
 hdfs_host = os.getenv("HDFS_HOST", "localhost:50070")  # Default value if not set
 print(f"HDFS Host: {hdfs_host}")
-BASE_FOLDER_PATH = "/user/input/top-by-country"
-DEFAULT_USER = "hdfs"
+BASE_FOLDER_PATH = "/user/zeppelin/top-by-country"
+DEFAULT_USER = "zeppelin"
+
 # Parse arguments
 year = sys.argv[1]  # First argument: year
 month = sys.argv[2]  # Second argument: month, remove leading zero if present
@@ -39,6 +40,13 @@ def process_request():
     # Example usage
     hdfs = HdfsClient(hosts=hdfs_host, user_name=DEFAULT_USER)
 
+    print('=' * 60)
+    hdfs.mkdirs("/user/hdfs/zeppelin_test")
+    print('=' * 60)
+
+    connected_user = hdfs.user_name
+    print(f"Connected HDFS user: {connected_user}")
+
     file_path = f"{BASE_FOLDER_PATH}/{year}/countries_visits_{year}_{month}.json"
     print(f"Checking for data at: {file_path}")
 
@@ -46,9 +54,9 @@ def process_request():
         print(f"Data for {year}-{month} is missing. Downloading...")
         data = get_views_per_country(year, month)
 
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        with open(file_path, 'w', encoding='utf-8') as jsonfile:
-            json.dump(data, jsonfile, indent=4)  # indent for pretty formatting
+        print(os.path.dirname(file_path))
+        hdfs.mkdirs(os.path.dirname(file_path))
+        hdfs.create(file_path, overwrite=True, data=json.dumps(data, indent=4).encode('utf-8'))
 
         print(f"Data for {year}-{month} saved to HDFS.")
         # Add fetching and saving logic here

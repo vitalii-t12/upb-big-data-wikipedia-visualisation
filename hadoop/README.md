@@ -92,3 +92,23 @@ hdfs dfs -mkdir -p /user/hdfs
 hdfs dfs -chown hdfs:hadoop /user/hdfs
 hdfs dfs -chmod 755 /user/hdfs
 ```
+
+
+```bash
+sudo bash -c 'echo "deb http://archive.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list'
+sudo bash -c 'echo "deb http://archive.debian.org/debian-security stretch/updates main contrib non-free" >> /etc/apt/sources.list'
+apt-get update
+apt-get install nano```
+
+
+```bash
+hdfs dfs -chown hdfs:supergroup /user
+```
+
+```bash
+adduser --disabled-password --gecos "" zeppelin
+su zeppelin
+echo 'export PATH=$PATH:/opt/hadoop-3.2.1/bin' >> ~/.bashrc
+source ~/.bashrc
+hdfs dfs -mkdir -p /user/zeppelin
+```

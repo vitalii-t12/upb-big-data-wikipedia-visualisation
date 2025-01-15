@@ -12,6 +12,7 @@ services:
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
     environment:
+      - HADOOP_USER_NAME=hdfs
       - CLUSTER_NAME=test
     env_file:
       - hadoop/hadoop.env
