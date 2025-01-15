@@ -2,6 +2,15 @@
 
 # Big Data Setup with Hadoop and Zeppelin
 
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Setup Instructions](#setup-instructions)
+  - [Clone the repository](#clone-the-repository)
+  - [Build and start the containers](#build-and-start-the-containers)
+  - [Access the web interfaces](#access-the-web-interfaces)
+  - [Use Zeppelin to interact with Hadoop](#use-zeppelin-to-interact-with-hadoop)
+
+
 ## Prerequisites
 - Docker and Docker Compose installed.
 
@@ -26,3 +35,17 @@
 
     ```bash
     docker-compose up --build
+
+# Hadoop configuration
+To connect to Hadoop CLI from the terminal, you can use the following command:
+   ```bash
+     docker exec -it hadoop bash
+  ```
+To add hadoop user:
+    ```bash
+      adduser --disabled-password --gecos "" hadoop
+     ```
+Set apropriate permissions for the Hadoop directories:
+   ```bash
+    chown -R hadoop:hadoop /opt/hadoop
+   ```

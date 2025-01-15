@@ -1,28 +1,99 @@
-version: '3.9'
+version: "3"
+
 services:
-  hadoop:
-    build: ./hadoop
-    container_name: hadoop
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    build: ./hadoop/namenode
+    container_name: namenode
+    restart: always
     ports:
-      - "9870:9870" # HDFS web UI
-      - "9000:9000" # Namenode
+      - 9870:9870
+      - 9000:9000
     volumes:
-      - hadoop_data:/hadoop/dfs/name
+      - hadoop_namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - hadoop/hadoop.env
     networks:
       - bigdata-network
 
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    build: ./hadoop/datanode
+    container_name: datanode
+    restart: always
+    volumes:
+      - hadoop_datanode:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - hadoop/hadoop.env
+    networks:
+      - bigdata-network
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    build: ./hadoop/resourcemanager
+    container_name: resourcemanager
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+    env_file:
+      - hadoop/hadoop.env
+    networks:
+      - bigdata-network
+
+  nodemanager1:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    build: ./hadoop/nodemanager
+    container_name: nodemanager
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - hadoop/hadoop.env
+    networks:
+      - bigdata-network
+
+  historyserver:
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    build: ./hadoop/historyserver
+    container_name: historyserver
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    volumes:
+      - hadoop_historyserver:/hadoop/yarn/timeline
+    env_file:
+      - hadoop/hadoop.env
+    networks:
+      - bigdata-network
+
+############################################
   zeppelin:
     build: ./zeppelin
     container_name: zeppelin
     ports:
       - "8080:8080" # Zeppelin UI
+      - "4040-4050:4040-4050" # Spark UI
+    environment:
+     - SPARK_LOCAL_IP=0.0.0.0
+     - SPARK_PUBLIC_DNS=zeppelin
+     - HDFS_HOST=namenode:9870  # Pass the Namenode address
+#     - HDFS_HOST=namenode:9000  # Pass the Namenode address
+    volumes:
+      - ./zeppelin-scripts:/zeppelin/scripts  # Mount scripts directory
+      - zeppelin_data:/zeppelin/data  # Mount data directory
+      - zeppelin_notebooks:/zeppelin/notebook  # Mount notebooks directory
     networks:
       - bigdata-network
-    depends_on:
-      - hadoop
-
 volumes:
-  hadoop_data:
-
+  hadoop_namenode:
+  hadoop_datanode:
+  hadoop_historyserver:
+  zeppelin_data:
+  zeppelin_notebooks:
+  # Mount data directory
 networks:
   bigdata-network:
