@@ -1,0 +1,5 @@
+FROM apache/zeppelin:0.10.0
+
+COPY zeppelin-site.xml.template /zeppelin/conf/zeppelin-site.xml.template
+
+CMD ["bin/zeppelin.sh"]

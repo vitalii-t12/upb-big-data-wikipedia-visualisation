@@ -1,0 +1,10 @@
+<configuration>
+    <property>
+        <name>zeppelin.jdbc.auth.zeppelin.hive.url</name>
+        <value>jdbc:hive2://hadoop:10000/default</value>
+    </property>
+    <property>
+        <name>zeppelin.jdbc.auth.zeppelin.hive.driver</name>
+        <value>org.apache.hive.jdbc.HiveDriver</value>
+    </property>
+</configuration>

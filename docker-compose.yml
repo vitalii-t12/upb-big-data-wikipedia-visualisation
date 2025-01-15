@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  hadoop:
+    build: ./hadoop
+    container_name: hadoop
+    ports:
+      - "9870:9870" # HDFS web UI
+      - "9000:9000" # Namenode
+    volumes:
+      - hadoop_data:/hadoop/dfs/name
+    networks:
+      - bigdata-network
+
+  zeppelin:
+    build: ./zeppelin
+    container_name: zeppelin
+    ports:
+      - "8080:8080" # Zeppelin UI
+    networks:
+      - bigdata-network
+    depends_on:
+      - hadoop
+
+volumes:
+  hadoop_data:
+
+networks:
+  bigdata-network:
