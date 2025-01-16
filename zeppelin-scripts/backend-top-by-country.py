@@ -8,6 +8,7 @@ from pyhdfs import HdfsClient
 hdfs_host = os.getenv("HDFS_HOST", "localhost:50070")  # Default value if not set
 print(f"HDFS Host: {hdfs_host}")
 BASE_FOLDER_PATH = "/user/zeppelin/top-by-country"
+RAW_DATA_FOLDER_PATH = f"{BASE_FOLDER_PATH}/raw"
 DEFAULT_USER = "zeppelin"
 
 # Parse arguments
@@ -40,14 +41,9 @@ def process_request():
     # Example usage
     hdfs = HdfsClient(hosts=hdfs_host, user_name=DEFAULT_USER)
 
-    print('=' * 60)
-    hdfs.mkdirs("/user/hdfs/zeppelin_test")
-    print('=' * 60)
+    print(f"Connected HDFS user: {hdfs.user_name}")
 
-    connected_user = hdfs.user_name
-    print(f"Connected HDFS user: {connected_user}")
-
-    file_path = f"{BASE_FOLDER_PATH}/{year}/countries_visits_{year}_{month}.json"
+    file_path = f"{RAW_DATA_FOLDER_PATH}/countries_visits_{year}_{month}.json"
     print(f"Checking for data at: {file_path}")
 
     if not hdfs.exists(file_path):
