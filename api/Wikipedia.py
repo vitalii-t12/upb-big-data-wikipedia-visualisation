@@ -3,6 +3,9 @@ from wikipedia.exceptions import DisambiguationError, PageError
 import pandas as pd
 import os
 from datetime import datetime
+import multiprocessing
+from itertools import islice
+from tqdm import tqdm
 
 PAGE_TITLE = "Python (programming language)"
 
@@ -92,7 +95,71 @@ def process_capitals_geosearch():
     print(f"Results saved to {filename}")
     return filename
 
+def process_city_batch(cities_batch):
+    results = []
+    for city_data in cities_batch:
+        city, country, lat, lng = city_data
+        try:
+            article_count = get_nearby_articles_count(lat, lng)
+            results.append((city, country, lat, lng, article_count))
+        except Exception as e:
+            print(f"Error processing {city}, {country}: {str(e)}")
+            results.append((city, country, lat, lng, 0))
+    return results
+
+def process_world_cities(batch_size=100):
+    print("Starting parallel geosearch process for world cities...")
+    
+    # Read worldcities CSV
+    cities_df = pd.read_csv('worldcities.csv')
+    
+    # Prepare city data for parallel processing
+    city_data = [(row['city'], row['country'], row['lat'], row['lng']) 
+                 for _, row in cities_df.iterrows()]
+    
+    # Calculate number of batches
+    n_batches = (len(city_data) + batch_size - 1) // batch_size
+    
+    # Create batches
+    batches = [city_data[i:i + batch_size] for i in range(0, len(city_data), batch_size)]
+    
+    # Initialize multiprocessing pool
+    num_processes = multiprocessing.cpu_count()
+    pool = multiprocessing.Pool(processes=num_processes)
+    
+    print(f"Processing {len(city_data)} cities using {num_processes} processes...")
+    
+    # Process batches in parallel with progress bar
+    all_results = []
+    with tqdm(total=len(batches), desc="Processing batches") as pbar:
+        for batch_results in pool.imap(process_city_batch, batches):
+            all_results.extend(batch_results)
+            pbar.update(1)
+    
+    pool.close()
+    pool.join()
+    
+    # Create results DataFrame
+    results_df = pd.DataFrame(all_results, 
+                            columns=['city', 'country', 'lat', 'lng', 'articles_within_10km'])
+    
+    # Merge with original dataframe to preserve all columns
+    cities_df['articles_within_10km'] = results_df['articles_within_10km']
+    
+    # Create wiki_pages directory if it doesn't exist
+    os.makedirs('wiki_pages', exist_ok=True)
+    
+    # Generate filename with timestamp
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f'wiki_pages/world_cities_{timestamp}.csv'
+    
+    # Save to CSV
+    cities_df.to_csv(filename, index=False, encoding='utf-8')
+    print(f"Results saved to {filename}")
+    return filename
+
 if __name__ == "__main__":
-    result = save_wiki_content(PAGE_TITLE)
-    print(result)
-    process_capitals_geosearch()
+    # result = save_wiki_content(PAGE_TITLE)
+    # print(result)
+    # process_capitals_geosearch()
+    process_world_cities(batch_size=100)
