@@ -3,7 +3,7 @@
     {
       "text": "%sh\npip install pyhdfs",
       "user": "anonymous",
-      "dateUpdated": "2025-01-17 10:47:43.943",
+      "dateUpdated": "2025-01-17 15:21:15.397",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -27,7 +27,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "Collecting pyhdfs\n  Downloading PyHDFS-0.3.1.tar.gz (12 kB)\nRequirement already satisfied: requests in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from pyhdfs) (2.26.0)\nCollecting simplejson\n  Downloading simplejson-3.19.3-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (126 kB)\nRequirement already satisfied: idna\u003c4,\u003e\u003d2.5 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (3.1)\nRequirement already satisfied: charset-normalizer~\u003d2.0.0 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (2.0.0)\nRequirement already satisfied: certifi\u003e\u003d2017.4.17 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (2021.5.30)\nRequirement already satisfied: urllib3\u003c1.27,\u003e\u003d1.21.1 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (1.26.6)\nBuilding wheels for collected packages: pyhdfs\n  Building wheel for pyhdfs (setup.py): started\n  Building wheel for pyhdfs (setup.py): finished with status \u0027done\u0027\n  Created wheel for pyhdfs: filename\u003dPyHDFS-0.3.1-py3-none-any.whl size\u003d12305 sha256\u003d1e5592630dbf6f7cae6478ae9ad3dceb86d3be7cde70f8e13f6491ac21f32496\n  Stored in directory: /opt/zeppelin/.cache/pip/wheels/96/5a/4a/66d8585661ee261bac2dfc1b14f666976d328a85f357814102\nSuccessfully built pyhdfs\nInstalling collected packages: simplejson, pyhdfs\nSuccessfully installed pyhdfs-0.3.1 simplejson-3.19.3\n"
+            "data": "Collecting pyhdfs\n  Downloading PyHDFS-0.3.1.tar.gz (12 kB)\nRequirement already satisfied: requests in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from pyhdfs) (2.26.0)\nCollecting simplejson\n  Downloading simplejson-3.19.3-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (126 kB)\nRequirement already satisfied: idna\u003c4,\u003e\u003d2.5 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (3.1)\nRequirement already satisfied: certifi\u003e\u003d2017.4.17 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (2021.5.30)\nRequirement already satisfied: charset-normalizer~\u003d2.0.0 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (2.0.0)\nRequirement already satisfied: urllib3\u003c1.27,\u003e\u003d1.21.1 in /opt/conda/envs/python_3_with_R/lib/python3.7/site-packages (from requests-\u003epyhdfs) (1.26.6)\nBuilding wheels for collected packages: pyhdfs\n  Building wheel for pyhdfs (setup.py): started\n  Building wheel for pyhdfs (setup.py): finished with status \u0027done\u0027\n  Created wheel for pyhdfs: filename\u003dPyHDFS-0.3.1-py3-none-any.whl size\u003d12305 sha256\u003d48a0cff5eeb299bab0fa7adada706eebd382592362148b1b70cba151aa95f209\n  Stored in directory: /opt/zeppelin/.cache/pip/wheels/96/5a/4a/66d8585661ee261bac2dfc1b14f666976d328a85f357814102\nSuccessfully built pyhdfs\nInstalling collected packages: simplejson, pyhdfs\nSuccessfully installed pyhdfs-0.3.1 simplejson-3.19.3\nWARNING: Running pip as the \u0027root\u0027 user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n"
           }
         ]
       },
@@ -37,14 +37,59 @@
       "jobName": "paragraph_1737071339001_1797976725",
       "id": "paragraph_1737071339001_1797976725",
       "dateCreated": "2025-01-16 23:48:59.001",
-      "dateStarted": "2025-01-17 10:47:43.948",
-      "dateFinished": "2025-01-17 10:47:53.773",
+      "dateStarted": "2025-01-17 15:21:15.403",
+      "dateFinished": "2025-01-17 15:21:22.713",
       "status": "FINISHED"
     },
     {
-      "text": "%sh\n",
+      "text": "%pyspark\nprint(1)",
       "user": "anonymous",
-      "dateUpdated": "2025-01-16 23:54:29.028",
+      "dateUpdated": "2025-01-17 15:30:53.396",
+      "progress": 0,
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "org.apache.zeppelin.interpreter.InterpreterException: org.apache.zeppelin.interpreter.InterpreterException: Fail to bootstrap pyspark\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:76)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:833)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:741)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.FIFOScheduler.lambda$runJobInScheduler$0(FIFOScheduler.java:42)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.zeppelin.interpreter.InterpreterException: Fail to bootstrap pyspark\n\tat org.apache.zeppelin.spark.PySparkInterpreter.open(PySparkInterpreter.java:105)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:70)\n\t... 8 more\nCaused by: java.io.IOException: Fail to run bootstrap script: python/zeppelin_pyspark.py\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/1737127853541-0/zeppelin_python.py\", line 152, in \u003cmodule\u003e\n    code \u003d compile(mod, \u0027\u003cstdin\u003e\u0027, \u0027exec\u0027)\nTypeError: required field \"type_ignores\" missing from Module\n\n\tat org.apache.zeppelin.python.PythonInterpreter.bootstrapInterpreter(PythonInterpreter.java:579)\n\tat org.apache.zeppelin.spark.PySparkInterpreter.open(PySparkInterpreter.java:102)\n\t... 9 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737071669028_872104565",
+      "id": "paragraph_1737071669028_872104565",
+      "dateCreated": "2025-01-16 23:54:29.028",
+      "dateStarted": "2025-01-17 15:30:53.408",
+      "dateFinished": "2025-01-17 15:30:53.754",
+      "status": "ERROR"
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 15:30:53.403",
       "progress": 0,
       "config": {},
       "settings": {
@@ -54,9 +99,9 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1737071669028_872104565",
-      "id": "paragraph_1737071669028_872104565",
-      "dateCreated": "2025-01-16 23:54:29.028",
+      "jobName": "paragraph_1737127853403_1919870310",
+      "id": "paragraph_1737127853403_1919870310",
+      "dateCreated": "2025-01-17 15:30:53.403",
       "status": "READY"
     }
   ],

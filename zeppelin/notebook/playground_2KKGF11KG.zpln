@@ -3,7 +3,7 @@
     {
       "text": "%pyspark\n\nimport os\n\n# User inputs\nyear \u003d z.input(\"year\", \"2024\")\nmonth \u003d z.input(\"month\", \"01\")\n\n# Path to the script\nscript_path \u003d \"/spark-scripts/backend/backend-top-by-country.py\"\n\n# Execute the script with arguments\nos.system(f\"python3 {script_path} {year} {month}\")\n",
       "user": "anonymous",
-      "dateUpdated": "2025-01-17 10:48:05.498",
+      "dateUpdated": "2025-01-17 19:55:58.872",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -20,8 +20,8 @@
       },
       "settings": {
         "params": {
-          "year": "2024",
-          "month": "04"
+          "year": "2023",
+          "month": "12"
         },
         "forms": {
           "year": {
@@ -45,7 +45,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "HDFS Host: namenode:9870\nConnected HDFS user: zeppelin\nChecking for data at: /user/zeppelin/top-by-country/raw/countries_visits_2024_04.json\nData for 2024-04 is missing. Downloading...\nhttps://wikimedia.org/api/rest_v1/metrics/pageviews/top-by-country/en.wikipedia.org/all-access/2024/04\n/user/zeppelin/top-by-country/raw\nData for 2024-04 saved to HDFS.\n0"
+            "data": "HDFS Host: namenode:9870\nConnected HDFS user: root\nChecking for data at: /user/zeppelin/top-by-country/raw/countries_visits_2023_12.json\nData for 2023-12 is missing. Downloading...\nhttps://wikimedia.org/api/rest_v1/metrics/pageviews/top-by-country/en.wikipedia.org/all-access/2023/12\n/user/zeppelin/top-by-country/raw\nData for 2023-12 saved to HDFS.\n0"
           }
         ]
       },
@@ -55,15 +55,15 @@
       "jobName": "paragraph_1737071347751_805150239",
       "id": "paragraph_1737071347751_805150239",
       "dateCreated": "2025-01-16 23:49:07.751",
-      "dateStarted": "2025-01-17 10:48:05.521",
-      "dateFinished": "2025-01-17 10:48:07.574",
+      "dateStarted": "2025-01-17 19:55:58.880",
+      "dateFinished": "2025-01-17 19:55:59.930",
       "status": "FINISHED"
     },
     {
       "text": "// Set the path to your Parquet file\nval parquetPath \u003d \"hdfs://namenode:9000/user/zeppelin/top-by-country/processed/year\u003d2024\"\n\n// Read the Parquet file into a DataFrame\nval df \u003d spark.read.parquet(parquetPath)\n\n// Create a temporary view for SQL querying\ndf.createOrReplaceTempView(\"country_visits\")\n\n// Display the data\ndf.show()\n",
       "user": "anonymous",
-      "dateUpdated": "2025-01-17 10:46:55.558",
-      "progress": 0,
+      "dateUpdated": "2025-01-17 15:23:06.779",
+      "progress": 100,
       "config": {
         "editorSetting": {
           "language": "scala",
@@ -99,10 +99,10 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d0"
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d2"
             },
             {
-              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d1"
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d3"
             }
           ],
           "interpreterSettingId": "spark"
@@ -112,8 +112,8 @@
       "jobName": "paragraph_1737071640385_880474159",
       "id": "paragraph_1737071640385_880474159",
       "dateCreated": "2025-01-16 23:54:00.385",
-      "dateStarted": "2025-01-17 10:46:55.573",
-      "dateFinished": "2025-01-17 10:47:08.488",
+      "dateStarted": "2025-01-17 15:23:06.789",
+      "dateFinished": "2025-01-17 15:23:07.703",
       "status": "FINISHED"
     },
     {
