@@ -9,8 +9,12 @@
   - [Build and start the containers](#build-and-start-the-containers)
   - [Access the web interfaces](#access-the-web-interfaces)
   - [Use Zeppelin to interact with Hadoop](#use-zeppelin-to-interact-with-hadoop)
-
-
+- [Hadoop configuration](#hadoop-configuration)
+- [Working with data](#working-with-data)
+  - [Get top countries by pageviews](#get-top-countries-by-pageviews)
+  - [Process countries by pageviews](#process-countries-by-pageviews)
+  - [Process large CSV with geographical data](#process-large-csv-with-geographical-data)
+- [Future Enhancements](#future-enhancements)
 ## Prerequisites
 - Docker and Docker Compose installed.
 
