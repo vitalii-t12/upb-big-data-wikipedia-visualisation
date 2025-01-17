@@ -9,7 +9,7 @@ hdfs_host = os.getenv("HDFS_HOST", "localhost:50070")  # Default value if not se
 print(f"HDFS Host: {hdfs_host}")
 BASE_FOLDER_PATH = "/user/zeppelin/top-by-country"
 RAW_DATA_FOLDER_PATH = f"{BASE_FOLDER_PATH}/raw"
-DEFAULT_USER = "zeppelin"
+# DEFAULT_USER = "zeppelin"
 
 # Parse arguments
 year = sys.argv[1]  # First argument: year
@@ -39,7 +39,7 @@ def get_views_per_country(year, month):
 
 def process_request():
     # Example usage
-    hdfs = HdfsClient(hosts=hdfs_host, user_name=DEFAULT_USER)
+    hdfs = HdfsClient(hosts=hdfs_host)
 
     print(f"Connected HDFS user: {hdfs.user_name}")
 

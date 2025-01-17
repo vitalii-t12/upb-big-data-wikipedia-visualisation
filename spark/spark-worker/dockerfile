@@ -1,0 +1,6 @@
+# Dockerfile.spark-worker
+FROM bde2020/spark-worker:3.1.2-hadoop3.2
+
+# Install Python using apk (Alpine)
+RUN apk update && apk add --no-cache python3 py3-pip && \
+    ln -sf python3 /usr/bin/python
