@@ -1,0 +1,378 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\n\nimport os\n\n# User inputs\nyear \u003d z.input(\"year\", \"2024\")\nmonth \u003d z.input(\"month\", \"01\")\n\n# Path to the script\nscript_path \u003d \"/zeppelin/scripts/backend-top-by-country.py\"\n\n# Execute the script with arguments\nos.system(f\"python3 {script_path} {year} {month}\")\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-16 23:54:49.058",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {
+          "year": "2024",
+          "month": "03"
+        },
+        "forms": {
+          "year": {
+            "type": "TextBox",
+            "name": "year",
+            "displayName": "year",
+            "defaultValue": "2024",
+            "hidden": false
+          },
+          "month": {
+            "type": "TextBox",
+            "name": "month",
+            "displayName": "month",
+            "defaultValue": "01",
+            "hidden": false
+          }
+        }
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "HDFS Host: namenode:9870\nConnected HDFS user: zeppelin\nChecking for data at: /user/zeppelin/top-by-country/raw/countries_visits_2024_03.json\nData for 2024-03 is missing. Downloading...\nhttps://wikimedia.org/api/rest_v1/metrics/pageviews/top-by-country/en.wikipedia.org/all-access/2024/03\n/user/zeppelin/top-by-country/raw\nData for 2024-03 saved to HDFS.\n0"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737071347751_805150239",
+      "id": "paragraph_1737071347751_805150239",
+      "dateCreated": "2025-01-16 23:49:07.751",
+      "dateStarted": "2025-01-16 23:54:49.069",
+      "dateFinished": "2025-01-16 23:54:50.922",
+      "status": "FINISHED"
+    },
+    {
+      "text": "// Set the path to your Parquet file\nval parquetPath \u003d \"hdfs://namenode:9000/user/zeppelin/top-by-country/processed/year\u003d2024\"\n\n// Read the Parquet file into a DataFrame\nval df \u003d spark.read.parquet(parquetPath)\n\n// Create a temporary view for SQL querying\ndf.createOrReplaceTempView(\"country_visits\")\n\n// Display the data\ndf.show()\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-16 23:57:26.992",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-------+----------+----+-----+\n|country|     views|rank|month|\n+-------+----------+----+-----+\n|     US|3411452000|   1|    1|\n|     GB| 929932000|   2|    1|\n|     IN| 840426000|   3|    1|\n|     CA| 409633000|   4|    1|\n|     AU| 263319000|   5|    1|\n|     DE| 173684000|   6|    1|\n|     PH| 142599000|   7|    1|\n|     NL| 107716000|   8|    1|\n|     ID|  95126000|   9|    1|\n|     FR|  87439000|  10|    1|\n|     IE|  80218000|  11|    1|\n|     IT|  79331000|  12|    1|\n|     MY|  76533000|  13|    1|\n|     SG|  76517000|  14|    1|\n|     BR|  69351000|  15|    1|\n|     PL|  68370000|  16|    1|\n|     SE|  66367000|  17|    1|\n|     ZA|  60416000|  18|    1|\n|     ES|  58474000|  20|    1|\n|     BE|  56284000|  22|    1|\n+-------+----------+----+-----+\nonly showing top 20 rows\n\n\u001b[1m\u001b[34mparquetPath\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m \u003d hdfs://namenode:9000/user/zeppelin/top-by-country/processed/year\u003d2024\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [country: string, views: bigint ... 2 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d0"
+            },
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d1"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737071640385_880474159",
+      "id": "paragraph_1737071640385_880474159",
+      "dateCreated": "2025-01-16 23:54:00.385",
+      "dateStarted": "2025-01-16 23:57:26.997",
+      "dateFinished": "2025-01-16 23:57:32.598",
+      "status": "FINISHED"
+    },
+    {
+      "text": "// Set the path to your Parquet file\nval parquetPath \u003d \"hdfs://namenode:9000/user/zeppelin/top-by-country/processed/processed_data.parquet\"\n\n// Read the Parquet file into a DataFrame\nval df \u003d spark.read.parquet(parquetPath)\n\n// Create a temporary view for SQL querying\ndf.createOrReplaceTempView(\"country_visits\")\n\n// Display the data\ndf.show()\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 00:00:58.092",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-------+----------+----+----+-----+\n|country|     views|rank|year|month|\n+-------+----------+----+----+-----+\n|     US|3411452000|   1|2024|    1|\n|     GB| 929932000|   2|2024|    1|\n|     IN| 840426000|   3|2024|    1|\n|     CA| 409633000|   4|2024|    1|\n|     AU| 263319000|   5|2024|    1|\n|     DE| 173684000|   6|2024|    1|\n|     PH| 142599000|   7|2024|    1|\n|     NL| 107716000|   8|2024|    1|\n|     ID|  95126000|   9|2024|    1|\n|     FR|  87439000|  10|2024|    1|\n|     IE|  80218000|  11|2024|    1|\n|     IT|  79331000|  12|2024|    1|\n|     MY|  76533000|  13|2024|    1|\n|     SG|  76517000|  14|2024|    1|\n|     BR|  69351000|  15|2024|    1|\n|     PL|  68370000|  16|2024|    1|\n|     SE|  66367000|  17|2024|    1|\n|     ZA|  60416000|  18|2024|    1|\n|     ES|  58474000|  20|2024|    1|\n|     BE|  56284000|  22|2024|    1|\n+-------+----------+----+----+-----+\nonly showing top 20 rows\n\n\u001b[1m\u001b[34mparquetPath\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m \u003d hdfs://namenode:9000/user/zeppelin/top-by-country/processed/processed_data.parquet\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [country: string, views: bigint ... 3 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d2"
+            },
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d3"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737071811282_1962703523",
+      "id": "paragraph_1737071811282_1962703523",
+      "dateCreated": "2025-01-16 23:56:51.283",
+      "dateStarted": "2025-01-17 00:00:58.109",
+      "dateFinished": "2025-01-17 00:00:59.294",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%sql\nSELECT * \nFROM country_visits \nWHERE country \u003d \u0027US\u0027;",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 00:01:38.296",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "country": "string",
+                      "views": "string",
+                      "rank": "string",
+                      "year": "string",
+                      "month": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "country\tviews\trank\tyear\tmonth\nUS\t3411452000\t1\t2024\t1\nUS\t3288604000\t1\t2024\t3\nUS\t3094439000\t1\t2024\t2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d7"
+            },
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d8"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737072058104_437424982",
+      "id": "paragraph_1737072058104_437424982",
+      "dateCreated": "2025-01-17 00:00:58.105",
+      "dateStarted": "2025-01-17 00:01:38.300",
+      "dateFinished": "2025-01-17 00:01:38.615",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%sql\nSELECT country, SUM(views) as total_views \nFROM country_visits \nWHERE year \u003d \u00272024\u0027\nGROUP BY country \nORDER BY total_views DESC;\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 00:02:17.634",
+      "progress": 58,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "country": "string",
+                      "total_views": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "country\ttotal_views\nUS\t9794495000\nGB\t2612794000\nIN\t2347044000\nCA\t1164691000\nAU\t722747000\nDE\t481504000\nPH\t407833000\nNL\t277791000\nID\t260778000\nFR\t244684000\nIT\t210263000\nMY\t208572000\nIE\t207707000\nSG\t205184000\nBR\t198897000\nPL\t188192000\nSE\t185229000\nZA\t169264000\nES\t161896000\nJP\t137479000\nBE\t132507000\nNZ\t127429000\nHK\t122844000\nMX\t120170000\nFI\t118945000\nNG\t113844000\nRO\t110787000\nGR\t107959000\nTH\t105010000\nNO\t93869000\nCH\t91202000\nDK\t89696000\nBG\t85622000\nIL\t79651000\nCZ\t79429000\nRS\t76110000\nHU\t75848000\nPT\t73486000\nKR\t69985000\nAT\t66162000\nTW\t61205000\nHR\t60104000\nUA\t53801000\nAR\t52102000\nKE\t45325000\nLK\t42182000\nNP\t37841000\nSK\t36766000\nCO\t36451000\nCL\t33143000\nLT\t31969000\nSI\t31397000\nMA\t25324000\nEE\t24095000\nPE\t23642000\nBA\t22447000\nPR\t20770000\nGH\t20660000\nDZ\t19254000\nGE\t18479000\nLV\t17718000\nQA\t16583000\nMK\t16574000\nIS\t12903000\nTZ\t12772000\nAL\t12656000\nCY\t12238000\nDO\t11737000\nTN\t11105000\nCR\t11062000\nKH\t11039000\nLU\t11031000\nAM\t10383000\nLB\t10196000\nMT\t10142000\nUG\t10054000\nEC\t9855000\nTT\t8871000\nJO\t8579000\nJM\t8536000\nMD\t8120000\nUY\t7699000\nGT\t7053000\nPA\t7032000\nMU\t6991000\nZM\t6850000\nMN\t6447000\nME\t5887000\nXK\t5539000\nBN\t5341000\nZW\t5201000\nBO\t4655000\n--\t4412000\nMV\t3904000\nIM\t3663000\nSV\t3550000\nSO\t3518000\nPY\t3380000\nRW\t3264000\nBS\t3214000\nJE\t3043000\nCM\t2957000\nNA\t2922000\nAO\t2877000\nMW\t2829000\nBB\t2801000\nBW\t2555000\nKG\t2522000\nLY\t2347000\nPG\t2332000\nCI\t1926000\nBZ\t1919000\nGU\t1911000\nGY\t1838000\nFJ\t1824000\nBT\t1802000\nGG\t1786000\nMZ\t1660000\nSL\t1656000\nCD\t1643000\nSN\t1542000\nLR\t1496000\nKY\t1435000\nSR\t1377000\nSC\t1228000\nAW\t1183000\nBM\t1170000\nLC\t1027000\nFO\t1007000\nVI\t996000\nGI\t989000\nCW\t989000\nGL\t912000\nSS\t895000\nMG\t884000\nGM\t836000\nHT\t793000\nRE\t778000\nBJ\t760000\nLS\t758000\nAG\t740000\nGD\t684000\nSZ\t684000\nTG\t592000\nGP\t525000\nAD\t522000\nTC\t501000\nMC\t489000\nCV\t478000\nBF\t475000\nVC\t463000\nKN\t461000\nMR\t459000\nAX\t434000\nSX\t432000\nML\t408000\nMQ\t373000\nMP\t353000\nDM\t311000\nPF\t305000\nVG\t302000\nBI\t302000\nGA\t295000\nCG\t288000\nGN\t287000\nLI\t284000\nTL\t277000\nSB\t271000\nVU\t263000\nNC\t241000\nNE\t230000\nBQ\t213000\nWS\t207000\nAI\t155000\nGF\t153000\nTD\t134000\nSM\t120000\nGQ\t119000\nTO\t118000\nMF\t118000\nPW\t107000\nAS\t106000\nFK\t95000\nFM\t93000\nMH\t91000\nYT\t84000\nCK\t80000\nGW\t78000\nCF\t64000\nKM\t44000\nKI\t38000\nST\t30000\nMS\t30000\nVA\t26000\nIO\t24000\nPM\t19000\nNR\t19000\nNF\t12000\nBL\t11000\nSH\t8000\nWF\t5000\nAQ\t4000\nTV\t3000\nSJ\t3000\nCX\t2000\nPN\t2000\nNU\t2000\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d9"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737072076291_1890005728",
+      "id": "paragraph_1737072076291_1890005728",
+      "dateCreated": "2025-01-17 00:01:16.291",
+      "dateStarted": "2025-01-17 00:02:13.582",
+      "dateFinished": "2025-01-17 00:02:17.084",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 00:02:13.581",
+      "progress": 0,
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737072133581_922682222",
+      "id": "paragraph_1737072133581_922682222",
+      "dateCreated": "2025-01-17 00:02:13.581",
+      "status": "READY"
+    }
+  ],
+  "name": "playground",
+  "id": "2KKGF11KG",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

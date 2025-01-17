@@ -199,7 +199,7 @@ services:
     volumes:
       - zeppelin_data:/zeppelin/data  # Mount data directory
       - ./zeppelin-scripts:/zeppelin/scripts  # Mount scripts directory
-      - ./zeppelin/notebooks:/zeppelin/notebook  # Mount notebooks directory
+      - ./zeppelin/notebook:/opt/zeppelin/notebook  # Mount notebooks directory
       - ./hadoop-config:/etc/hadoop
     networks:
       bigdata-network:
