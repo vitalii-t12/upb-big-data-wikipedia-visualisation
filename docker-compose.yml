@@ -13,6 +13,7 @@ services:
       - hadoop_namenode:/hadoop/dfs/name
       - ./spark-scripts:/spark-scripts
       - ./hadoop-config:/etc/hadoop
+      - ./data:/data
     environment:
       - HADOOP_USER_NAME=hdfs
       - CLUSTER_NAME=test
