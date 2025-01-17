@@ -199,7 +199,7 @@ services:
       - HDFS_HOST=namenode:9870  # Pass the Namenode address
     volumes:
       - zeppelin_data:/zeppelin/data  # Mount data directory
-      - ./zeppelin-scripts:/zeppelin/scripts  # Mount scripts directory
+      - ./spark-scripts:/spark-scripts
       - ./zeppelin/notebook:/opt/zeppelin/notebook  # Mount notebooks directory
       - ./hadoop-config:/etc/hadoop
     networks:

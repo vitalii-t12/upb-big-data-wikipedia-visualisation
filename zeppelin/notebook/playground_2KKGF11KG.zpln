@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "%pyspark\n\nimport os\n\n# User inputs\nyear \u003d z.input(\"year\", \"2024\")\nmonth \u003d z.input(\"month\", \"01\")\n\n# Path to the script\nscript_path \u003d \"/spark-scripts/backend/backend-top-by-country.py\"\n\nprint(\u00271111\u0027)\n# Execute the script with arguments\n# os.system(f\"python3 {script_path} {year} {month}\")\n",
+      "text": "%pyspark\n\nimport os\n\n# User inputs\nyear \u003d z.input(\"year\", \"2024\")\nmonth \u003d z.input(\"month\", \"01\")\n\n# Path to the script\nscript_path \u003d \"/spark-scripts/backend/backend-top-by-country.py\"\n\n# Execute the script with arguments\nos.system(f\"python3 {script_path} {year} {month}\")\n",
       "user": "anonymous",
-      "dateUpdated": "2025-01-17 01:51:14.453",
+      "dateUpdated": "2025-01-17 10:48:05.498",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -21,16 +21,31 @@
       "settings": {
         "params": {
           "year": "2024",
-          "month": "02"
+          "month": "04"
         },
-        "forms": {}
+        "forms": {
+          "year": {
+            "type": "TextBox",
+            "name": "year",
+            "displayName": "year",
+            "defaultValue": "2024",
+            "hidden": false
+          },
+          "month": {
+            "type": "TextBox",
+            "name": "month",
+            "displayName": "month",
+            "defaultValue": "01",
+            "hidden": false
+          }
+        }
       },
       "results": {
-        "code": "ERROR",
+        "code": "SUCCESS",
         "msg": [
           {
             "type": "TEXT",
-            "data": "org.apache.zeppelin.interpreter.InterpreterException: org.apache.zeppelin.interpreter.InterpreterException: org.apache.zeppelin.interpreter.InterpreterException: Fail to open SparkInterpreter\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:76)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:833)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:741)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.FIFOScheduler.lambda$runJobInScheduler$0(FIFOScheduler.java:42)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.zeppelin.interpreter.InterpreterException: org.apache.zeppelin.interpreter.InterpreterException: Fail to open SparkInterpreter\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:76)\n\tat org.apache.zeppelin.interpreter.Interpreter.getInterpreterInTheSameSessionByClassName(Interpreter.java:322)\n\tat org.apache.zeppelin.interpreter.Interpreter.getInterpreterInTheSameSessionByClassName(Interpreter.java:333)\n\tat org.apache.zeppelin.spark.PySparkInterpreter.open(PySparkInterpreter.java:90)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:70)\n\t... 8 more\nCaused by: org.apache.zeppelin.interpreter.InterpreterException: Fail to open SparkInterpreter\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:137)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:70)\n\t... 12 more\nCaused by: java.lang.reflect.InvocationTargetException\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.spark2CreateContext(BaseSparkScalaInterpreter.scala:299)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.createSparkContext(BaseSparkScalaInterpreter.scala:228)\n\tat org.apache.zeppelin.spark.SparkScala211Interpreter.open(SparkScala211Interpreter.scala:99)\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:121)\n\t... 13 more\nCaused by: java.lang.NullPointerException\n\tat org.apache.spark.SparkContext.\u003cinit\u003e(SparkContext.scala:560)\n\tat org.apache.spark.SparkContext$.getOrCreate(SparkContext.scala:2520)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:935)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:926)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.sql.SparkSession$Builder.getOrCreate(SparkSession.scala:926)\n\t... 21 more\n"
+            "data": "HDFS Host: namenode:9870\nConnected HDFS user: zeppelin\nChecking for data at: /user/zeppelin/top-by-country/raw/countries_visits_2024_04.json\nData for 2024-04 is missing. Downloading...\nhttps://wikimedia.org/api/rest_v1/metrics/pageviews/top-by-country/en.wikipedia.org/all-access/2024/04\n/user/zeppelin/top-by-country/raw\nData for 2024-04 saved to HDFS.\n0"
           }
         ]
       },
@@ -40,14 +55,14 @@
       "jobName": "paragraph_1737071347751_805150239",
       "id": "paragraph_1737071347751_805150239",
       "dateCreated": "2025-01-16 23:49:07.751",
-      "dateStarted": "2025-01-17 01:51:14.463",
-      "dateFinished": "2025-01-17 01:52:59.381",
-      "status": "ERROR"
+      "dateStarted": "2025-01-17 10:48:05.521",
+      "dateFinished": "2025-01-17 10:48:07.574",
+      "status": "FINISHED"
     },
     {
       "text": "// Set the path to your Parquet file\nval parquetPath \u003d \"hdfs://namenode:9000/user/zeppelin/top-by-country/processed/year\u003d2024\"\n\n// Read the Parquet file into a DataFrame\nval df \u003d spark.read.parquet(parquetPath)\n\n// Create a temporary view for SQL querying\ndf.createOrReplaceTempView(\"country_visits\")\n\n// Display the data\ndf.show()\n",
       "user": "anonymous",
-      "dateUpdated": "2025-01-17 01:50:47.587",
+      "dateUpdated": "2025-01-17 10:46:55.558",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -67,28 +82,44 @@
         "forms": {}
       },
       "results": {
-        "code": "ERROR",
+        "code": "SUCCESS",
         "msg": [
           {
             "type": "TEXT",
-            "data": "org.apache.zeppelin.interpreter.InterpreterException: org.apache.zeppelin.interpreter.InterpreterException: Fail to open SparkInterpreter\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:76)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:833)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:741)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.FIFOScheduler.lambda$runJobInScheduler$0(FIFOScheduler.java:42)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.zeppelin.interpreter.InterpreterException: Fail to open SparkInterpreter\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:137)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:70)\n\t... 8 more\nCaused by: java.lang.reflect.InvocationTargetException\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.spark2CreateContext(BaseSparkScalaInterpreter.scala:299)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.createSparkContext(BaseSparkScalaInterpreter.scala:228)\n\tat org.apache.zeppelin.spark.SparkScala211Interpreter.open(SparkScala211Interpreter.scala:99)\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:121)\n\t... 9 more\nCaused by: java.lang.NullPointerException\n\tat org.apache.spark.SparkContext.\u003cinit\u003e(SparkContext.scala:560)\n\tat org.apache.spark.SparkContext$.getOrCreate(SparkContext.scala:2520)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:935)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:926)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.sql.SparkSession$Builder.getOrCreate(SparkSession.scala:926)\n\t... 17 more\n"
+            "data": "+-------+----------+----+-----+\n|country|     views|rank|month|\n+-------+----------+----+-----+\n|     US|3411452000|   1|    1|\n|     GB| 929932000|   2|    1|\n|     IN| 840426000|   3|    1|\n|     CA| 409633000|   4|    1|\n|     AU| 263319000|   5|    1|\n|     DE| 173684000|   6|    1|\n|     PH| 142599000|   7|    1|\n|     NL| 107716000|   8|    1|\n|     ID|  95126000|   9|    1|\n|     FR|  87439000|  10|    1|\n|     IE|  80218000|  11|    1|\n|     IT|  79331000|  12|    1|\n|     MY|  76533000|  13|    1|\n|     SG|  76517000|  14|    1|\n|     BR|  69351000|  15|    1|\n|     PL|  68370000|  16|    1|\n|     SE|  66367000|  17|    1|\n|     ZA|  60416000|  18|    1|\n|     ES|  58474000|  20|    1|\n|     BE|  56284000|  22|    1|\n+-------+----------+----+-----+\nonly showing top 20 rows\n\n\u001b[1m\u001b[34mparquetPath\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m \u003d hdfs://namenode:9000/user/zeppelin/top-by-country/processed/year\u003d2024\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [country: string, views: bigint ... 2 more fields]\n"
           }
         ]
       },
       "apps": [],
-      "runtimeInfos": {},
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d0"
+            },
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d1"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1737071640385_880474159",
       "id": "paragraph_1737071640385_880474159",
       "dateCreated": "2025-01-16 23:54:00.385",
-      "dateStarted": "2025-01-17 01:50:56.620",
-      "dateFinished": "2025-01-17 01:51:58.327",
-      "status": "ERROR"
+      "dateStarted": "2025-01-17 10:46:55.573",
+      "dateFinished": "2025-01-17 10:47:08.488",
+      "status": "FINISHED"
     },
     {
       "text": "// Set the path to your Parquet file\nval parquetPath \u003d \"hdfs://namenode:9000/user/zeppelin/top-by-country/processed/processed_data.parquet\"\n\n// Read the Parquet file into a DataFrame\nval df \u003d spark.read.parquet(parquetPath)\n\n// Create a temporary view for SQL querying\ndf.createOrReplaceTempView(\"country_visits\")\n\n// Display the data\ndf.show()\n",
       "user": "anonymous",
-      "dateUpdated": "2025-01-17 01:52:24.542",
+      "dateUpdated": "2025-01-17 10:43:06.613",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -108,23 +139,39 @@
         "forms": {}
       },
       "results": {
-        "code": "ERROR",
+        "code": "SUCCESS",
         "msg": [
           {
             "type": "TEXT",
-            "data": "org.apache.zeppelin.interpreter.InterpreterException: org.apache.zeppelin.interpreter.InterpreterException: Fail to open SparkInterpreter\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:76)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:833)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:741)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.FIFOScheduler.lambda$runJobInScheduler$0(FIFOScheduler.java:42)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.zeppelin.interpreter.InterpreterException: Fail to open SparkInterpreter\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:137)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:70)\n\t... 8 more\nCaused by: java.lang.reflect.InvocationTargetException\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.spark2CreateContext(BaseSparkScalaInterpreter.scala:299)\n\tat org.apache.zeppelin.spark.BaseSparkScalaInterpreter.createSparkContext(BaseSparkScalaInterpreter.scala:228)\n\tat org.apache.zeppelin.spark.SparkScala211Interpreter.open(SparkScala211Interpreter.scala:99)\n\tat org.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:121)\n\t... 9 more\nCaused by: java.lang.NullPointerException\n\tat org.apache.spark.SparkContext.\u003cinit\u003e(SparkContext.scala:560)\n\tat org.apache.spark.SparkContext$.getOrCreate(SparkContext.scala:2520)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:935)\n\tat org.apache.spark.sql.SparkSession$Builder$$anonfun$7.apply(SparkSession.scala:926)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.sql.SparkSession$Builder.getOrCreate(SparkSession.scala:926)\n\t... 17 more\n"
+            "data": "+-------+----------+----+----+-----+\n|country|     views|rank|year|month|\n+-------+----------+----+----+-----+\n|     US|3411452000|   1|2024|    1|\n|     GB| 929932000|   2|2024|    1|\n|     IN| 840426000|   3|2024|    1|\n|     CA| 409633000|   4|2024|    1|\n|     AU| 263319000|   5|2024|    1|\n|     DE| 173684000|   6|2024|    1|\n|     PH| 142599000|   7|2024|    1|\n|     NL| 107716000|   8|2024|    1|\n|     ID|  95126000|   9|2024|    1|\n|     FR|  87439000|  10|2024|    1|\n|     IE|  80218000|  11|2024|    1|\n|     IT|  79331000|  12|2024|    1|\n|     MY|  76533000|  13|2024|    1|\n|     SG|  76517000|  14|2024|    1|\n|     BR|  69351000|  15|2024|    1|\n|     PL|  68370000|  16|2024|    1|\n|     SE|  66367000|  17|2024|    1|\n|     ZA|  60416000|  18|2024|    1|\n|     ES|  58474000|  20|2024|    1|\n|     BE|  56284000|  22|2024|    1|\n+-------+----------+----+----+-----+\nonly showing top 20 rows\n\n\u001b[1m\u001b[34mparquetPath\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m \u003d hdfs://namenode:9000/user/zeppelin/top-by-country/processed/processed_data.parquet\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [country: string, views: bigint ... 3 more fields]\n"
           }
         ]
       },
       "apps": [],
-      "runtimeInfos": {},
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d0"
+            },
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d1"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1737071811282_1962703523",
       "id": "paragraph_1737071811282_1962703523",
       "dateCreated": "2025-01-16 23:56:51.283",
-      "dateStarted": "2025-01-17 01:52:59.412",
-      "dateFinished": "2025-01-17 01:54:04.522",
-      "status": "ERROR"
+      "dateStarted": "2025-01-17 10:43:06.651",
+      "dateFinished": "2025-01-17 10:43:39.642",
+      "status": "FINISHED"
     },
     {
       "text": "%sql\nSELECT * \nFROM country_visits \nWHERE country \u003d \u0027US\u0027;",
@@ -362,9 +409,184 @@
       "status": "ERROR"
     },
     {
-      "text": "%sh\n",
+      "text": "df \u003d spark.read.parquet(\"hdfs://namenode:9000/user/zeppelin/articles-in-range/processed/processed.parquet\")\ndf.show()\n",
       "user": "anonymous",
-      "dateUpdated": "2025-01-17 01:56:03.875",
+      "dateUpdated": "2025-01-17 11:31:08.249",
+      "progress": 0,
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003cconsole\u003e:25: \u001b[31merror: \u001b[0mreassignment to val\n       df \u003d spark.read.parquet(\"hdfs://namenode:9000/user/zeppelin/articles-in-range/processed/processed.parquet\")\n          ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737078963875_401717591",
+      "id": "paragraph_1737078963875_401717591",
+      "dateCreated": "2025-01-17 01:56:03.875",
+      "dateStarted": "2025-01-17 11:31:08.267",
+      "dateFinished": "2025-01-17 11:31:08.378",
+      "status": "ERROR"
+    },
+    {
+      "text": "%sql\nCREATE OR REPLACE TEMPORARY VIEW cities AS\nSELECT * \nFROM parquet.`hdfs://namenode:9000/user/zeppelin/articles-in-range/processed/processed.parquet`;\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 11:31:13.200",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d2"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737113391493_1022503657",
+      "id": "paragraph_1737113391493_1022503657",
+      "dateCreated": "2025-01-17 11:29:51.498",
+      "dateStarted": "2025-01-17 11:31:13.217",
+      "dateFinished": "2025-01-17 11:31:13.983",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%sql\nSELECT city, lat, lng, population \nFROM cities\nWHERE population \u003e 10000000;\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 11:31:30.362",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "city": "string",
+                      "lat": "string",
+                      "lng": "string",
+                      "population": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "city\tlat\tlng\tpopulation\nTokyo\t35.6897\t139.6922\t3.7732E7\nJakarta\t-6.175\t106.8275\t3.3756E7\nDelhi\t28.61\t77.23\t3.2226E7\nGuangzhou\t23.13\t113.26\t2.694E7\nMumbai\t19.0761\t72.8775\t2.4973E7\nManila\t14.5958\t120.9772\t2.4922E7\nShanghai\t31.2286\t121.4747\t2.4073E7\nSão Paulo\t-23.55\t-46.6333\t2.3086E7\nSeoul\t37.56\t126.99\t2.3016E7\nMexico City\t19.4333\t-99.1333\t2.1804E7\nCairo\t30.0444\t31.2358\t2.0296E7\nNew York\t40.6943\t-73.9249\t1.8908608E7\nDhaka\t23.7639\t90.3889\t1.8627E7\nBeijing\t39.9067\t116.3975\t1.8522E7\nKolkāta\t22.5675\t88.37\t1.8502E7\nBangkok\t13.7525\t100.4942\t1.8007E7\nShenzhen\t22.5415\t114.0596\t1.7619E7\nMoscow\t55.7558\t37.6172\t1.7332E7\nBuenos Aires\t-34.6033\t-58.3817\t1.671E7\nLagos\t6.455\t3.3841\t1.6637E7\nIstanbul\t41.0136\t28.955\t1.6079E7\nKarachi\t24.86\t67.01\t1.5738E7\nBangalore\t12.9789\t77.5917\t1.5386E7\nHo Chi Minh City\t10.7756\t106.7019\t1.5136E7\nŌsaka\t34.6939\t135.5022\t1.5126E7\nChengdu\t30.66\t104.0633\t1.4645E7\nTehran\t35.6892\t51.3889\t1.4148E7\nKinshasa\t-4.3219\t15.3119\t1.2836E7\nRio de Janeiro\t-22.9111\t-43.2056\t1.2592E7\nChennai\t13.0825\t80.275\t1.2395E7\nXi’an\t34.2611\t108.9422\t1.2328E7\nLahore\t31.5497\t74.3436\t1.2306E7\nChongqing\t29.5637\t106.5504\t1.2135E7\nLos Angeles\t34.1141\t-118.4068\t1.1922389E7\nBaoding\t38.874\t115.464\t1.1544036E7\nLondon\t51.5072\t-0.1275\t1.1262E7\nParis\t48.8567\t2.3522\t1.106E7\nLinyi\t35.1038\t118.3564\t1.1018365E7\nDongguan\t23.021\t113.752\t1.0646E7\nHyderābād\t17.3617\t78.4747\t1.0494E7\nTianjin\t39.1336\t117.2054\t1.0368E7\nLima\t-12.06\t-77.0375\t1.032E7\nWuhan\t30.5934\t114.3046\t1.0251E7\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://zeppelin:4040/jobs/job?id\u003d3"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1737113473214_815566360",
+      "id": "paragraph_1737113473214_815566360",
+      "dateCreated": "2025-01-17 11:31:13.214",
+      "dateStarted": "2025-01-17 11:31:28.385",
+      "dateFinished": "2025-01-17 11:31:29.380",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-01-17 11:31:28.381",
       "progress": 0,
       "config": {},
       "settings": {
@@ -374,9 +596,9 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1737078963875_401717591",
-      "id": "paragraph_1737078963875_401717591",
-      "dateCreated": "2025-01-17 01:56:03.875",
+      "jobName": "paragraph_1737113488381_1043595681",
+      "id": "paragraph_1737113488381_1043595681",
+      "dateCreated": "2025-01-17 11:31:28.381",
       "status": "READY"
     }
   ],
