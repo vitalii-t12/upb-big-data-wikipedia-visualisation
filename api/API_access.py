@@ -3,12 +3,12 @@ import json
 from datetime import datetime, timedelta
 from urllib.parse import quote
 import pandas as pd
+import time
 
 #hyperparameters
 TIME = 365
 TITLE = "Elon_Musk"
-TOP_ARTICLES = 10
-COUNTRY = 'FR'     # Use 'ALL' for worldwide statistics or country code (e.g., 'US', 'GB', 'FR', etc.)
+TOP_LIMIT = 20
 
 def fetch_device_statistics(days):
     end_date = datetime.now()
@@ -49,71 +49,6 @@ def fetch_device_statistics(days):
         'percentages': percentages,
         'most_used': most_used
     }
-
-def fetch_top_articles(days, region, limit=100):
-    end_date = datetime.now()
-    start_date = end_date - timedelta(days=1)  # API only supports daily stats
-    
-    headers = {
-        'User-Agent': 'MyWikipediaApp/1.0 (your-email@example.com)',
-        'Accept': 'application/json'
-    }
-    
-    try:
-        if region.upper() == 'ALL':
-            # For worldwide stats
-            url = f"https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/{start_date.strftime('%Y/%m/%d')}"
-        else:
-            # For specific country - using correct endpoint structure
-            formatted_date = start_date.strftime('%Y%m%d00')  # Format: YYYYMMDD00
-            url = f"https://wikimedia.org/api/rest_v1/metrics/pageviews/top-by-country/{region.upper()}/all-access/{formatted_date}"
-        
-        response = requests.get(url, headers=headers)
-        
-        if response.status_code == 200:
-            data = response.json()
-            articles = []
-            rank = 1
-            
-            # Handle different JSON structure for country-specific response
-            if region.upper() == 'ALL':
-                article_list = data['items'][0]['articles']
-            else:
-                # Check if data exists for the country
-                if not data['items'] or len(data['items']) == 0:
-                    print(f"No data available for country code: {region}")
-                    return None, None
-                article_list = data['items'][0]['view_history'][0]['articles']
-            
-            for article in article_list:
-                if 'article' in article and article['article'] not in ['Main_Page', 'Special:Search']:
-                    articles.append({
-                        'article': article['article'],
-                        'views': article['views'],
-                        'rank': rank
-                    })
-                    rank += 1
-                    if len(articles) >= limit:
-                        break
-            
-            if articles:
-                df = pd.DataFrame(articles)
-                filename = f'top_articles_{region.lower()}_{days}days.csv'
-                df.to_csv(filename, index=False)
-                return df, region.upper()
-            else:
-                print("No valid articles found")
-                return None, None
-        else:
-            print(f"API Error: Status Code {response.status_code}")
-            if response.status_code == 404:
-                print(f"Country code '{region}' might be invalid or no data available for this region")
-            print(f"Response: {response.text}")
-            return None, None
-            
-    except Exception as e:
-        print(f"Error fetching top articles: {str(e)}")
-        return None, None
 
 def fetch_pageviews(title):
     encoded_title = quote(title.replace(" ", "_"))
@@ -169,6 +104,69 @@ def fetch_pageviews(title):
         print(f"Error fetching pageviews: {str(e)}")
         return None
 
+def get_top_articles(date, limit=20):
+    headers = {
+        'User-Agent': 'MyWikipediaApp/1.0 (your-email@example.com)',
+        'Accept': 'application/json'
+    }
+    
+    url = f"https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/{date.strftime('%Y/%m/%d')}"
+    
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            articles = []
+            for article in data['items'][0]['articles']:
+                if (not any(x in article['article'] for x in ['Special:', 'Main_Page', 'Wikipedia:', 'File:', 'Help:', 'User:', 'Talk:', 'Template:']) 
+                    and not article['article'].startswith('Portal:')):
+                    articles.append({
+                        'title': article['article'].replace('_', ' '),
+                        'daily_views': article['views']
+                    })
+            return articles[:limit]
+        else:
+            print(f"Error {response.status_code}: {response.text}")
+            return None
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return None
+
+def fetch_annual_top_articles():
+    print(f"\nFetching top {TOP_LIMIT} Wikipedia articles...")
+    
+    yesterday = datetime.now() - timedelta(days=1)
+    articles = get_top_articles(yesterday, TOP_LIMIT)
+    
+    if not articles:
+        print("No articles retrieved!")
+        return None
+    
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=365)
+    
+    all_data = []
+    for i, article in enumerate(articles, 1):
+        title = article['title']
+        print(f"Processing {i}/{len(articles)}: {title}")
+        views = fetch_pageviews(title.replace(' ', '_'))
+        
+        if views is not None:
+            all_data.append({
+                'article': title,
+                'daily_views': article['daily_views'],
+                'annual_views': views['total_views'],
+                'daily_average': views['daily_average']
+            })
+        time.sleep(1)  # Rate limiting
+    
+    if all_data:
+        df = pd.DataFrame(all_data)
+        df = df.sort_values('annual_views', ascending=False)
+        df.to_csv('top_wikipedia_articles.csv', index=False)
+        return df
+    return None
+
 # Fetch and print the data
 print(f"\nFetching global usage statistics for the last {TIME} days:")
 device_stats = fetch_device_statistics(TIME)
@@ -181,16 +179,6 @@ if device_stats:
     print(f"\nMost used platform: {device_stats['most_used'][0]} with {device_stats['most_used'][1]:,} views "
           f"({device_stats['percentages'][device_stats['most_used'][0]]:.1f}% of total views)")
 
-print(f"\nFetching top {TOP_ARTICLES} articles for the last {TIME} days:")
-result = fetch_top_articles(TIME, COUNTRY, TOP_ARTICLES)
-if result[0] is not None:
-    df, region = result
-    region_text = "worldwide" if region == "ALL" else f"in {region}"
-    print(f"\nTop viewed articles {region_text}:")
-    for _, row in df.iterrows():
-        print(f"Rank {row['rank']}: {row['article']} - {row['views']:,} views")
-    print(f"\nDetailed data saved to top_articles_{region.lower()}_{TIME}days.csv")
-
 print("\nFetching specific article statistics:")
 pageview_data = fetch_pageviews(TITLE)
 if pageview_data:
@@ -202,3 +190,10 @@ if pageview_data:
     print(f"\nDetailed daily data saved to pageviews_{TITLE}.csv")
 else:
     print("Failed to fetch data")
+
+print("\nFetching top articles statistics worldwide:")
+top_articles_data = fetch_annual_top_articles()
+if top_articles_data is not None:
+    print("\nTop Wikipedia articles by annual views:")
+    print(top_articles_data.head(TOP_LIMIT))
+    print("\nDetailed data saved to top_wikipedia_articles.csv")
