@@ -11,13 +11,25 @@ services:
       - 9000:9000
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
+      - ./spark-scripts:/spark-scripts
+      - ./hadoop-config:/etc/hadoop
     environment:
       - HADOOP_USER_NAME=hdfs
       - CLUSTER_NAME=test
     env_file:
       - hadoop/hadoop.env
     networks:
-      - bigdata-network
+      bigdata-network:
+        ipv4_address: 192.168.1.10
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
 
   datanode:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
@@ -26,12 +38,24 @@ services:
     restart: always
     volumes:
       - hadoop_datanode:/hadoop/dfs/data
+      - ./hadoop-config:/etc/hadoop
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
       - hadoop/hadoop.env
     networks:
-      - bigdata-network
+      bigdata-network:
+        ipv4_address: 192.168.1.11
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
+
 
   resourcemanager:
     image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
@@ -40,10 +64,23 @@ services:
     restart: always
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+    volumes:
+      - ./hadoop-config:/etc/hadoop
     env_file:
       - hadoop/hadoop.env
     networks:
-      - bigdata-network
+      bigdata-network:
+        ipv4_address: 192.168.1.12
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
+
 
   nodemanager1:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
@@ -52,10 +89,23 @@ services:
     restart: always
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    volumes:
+      - ./hadoop-config:/etc/hadoop
     env_file:
       - hadoop/hadoop.env
     networks:
-      - bigdata-network
+      bigdata-network:
+        ipv4_address: 192.168.1.13
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
+
 
   historyserver:
     image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
@@ -66,12 +116,76 @@ services:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
     volumes:
       - hadoop_historyserver:/hadoop/yarn/timeline
+      - ./hadoop-config:/etc/hadoop
     env_file:
       - hadoop/hadoop.env
     networks:
-      - bigdata-network
+      bigdata-network:
+        ipv4_address: 192.168.1.14
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
 
-############################################
+
+  spark-master:
+    container_name: spark-master
+    build: spark/spark-master
+    ports:
+      - "8090:8080"  # Spark Master Web UI
+      - "7077:7077"  # Spark Master Port
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+      - HADOOP_CONF_DIR=/etc/hadoop  # Point to the mounted configuration directory
+      - YARN_CONF_DIR=/etc/hadoop
+    volumes:
+      - ./spark-scripts:/spark-scripts
+      - ./hadoop-config:/etc/hadoop
+    networks:
+      bigdata-network:
+        ipv4_address: 192.168.1.15
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
+
+
+  spark-worker:
+    container_name: spark-worker
+    build: spark/spark-worker
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - HADOOP_CONF_DIR=/etc/hadoop  # Point to the mounted configuration directory
+      - YARN_CONF_DIR=/etc/hadoop
+    depends_on:
+      - spark-master
+    volumes:
+      - ./spark-scripts:/spark-scripts
+      - ./hadoop-config:/etc/hadoop
+    networks:
+      bigdata-network:
+        ipv4_address: 192.168.1.16
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
+
+
   zeppelin:
     build: ./zeppelin
     container_name: zeppelin
@@ -79,22 +193,38 @@ services:
       - "8080:8080" # Zeppelin UI
       - "4040-4050:4040-4050" # Spark UI
     environment:
-     - SPARK_LOCAL_IP=0.0.0.0
-     - SPARK_PUBLIC_DNS=zeppelin
-     - HDFS_HOST=namenode:9870  # Pass the Namenode address
-#     - HDFS_HOST=namenode:9000  # Pass the Namenode address
+      - SPARK_LOCAL_IP=0.0.0.0
+      - SPARK_PUBLIC_DNS=zeppelin
+      - HDFS_HOST=namenode:9870  # Pass the Namenode address
     volumes:
-      - ./zeppelin-scripts:/zeppelin/scripts  # Mount scripts directory
       - zeppelin_data:/zeppelin/data  # Mount data directory
-      - zeppelin_notebooks:/zeppelin/notebook  # Mount notebooks directory
+      - ./zeppelin-scripts:/zeppelin/scripts  # Mount scripts directory
+      - ./zeppelin/notebooks:/zeppelin/notebook  # Mount notebooks directory
+      - ./hadoop-config:/etc/hadoop
     networks:
-      - bigdata-network
+      bigdata-network:
+        ipv4_address: 192.168.1.17
+    extra_hosts:
+      - "namenode:192.168.1.10"
+      - "datanode:192.168.1.11"
+      - "resourcemanager:192.168.1.12"
+      - "nodemanager:192.168.1.13"
+      - "historyserver:192.168.1.14"
+      - "spark-master:192.168.1.15"
+      - "spark-worker:192.168.1.16"
+      - "zeppelin:192.168.1.17"
+
+
 volumes:
   hadoop_namenode:
   hadoop_datanode:
   hadoop_historyserver:
   zeppelin_data:
-  zeppelin_notebooks:
-  # Mount data directory
+#  zeppelin_notebooks:
+
 networks:
   bigdata-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
